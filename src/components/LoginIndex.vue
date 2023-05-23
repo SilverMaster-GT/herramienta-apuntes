@@ -1,5 +1,6 @@
 <template>
   <div class="login-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
+    <h2 class="login-title">Herramienta Gratuita de Apuntes, ¡lleva a donde quieras tu informacion importante!</h2>
     <h2 class="login-title">Iniciar sesión</h2>
     <form @submit.prevent="login" class="login-form">
       <label for="email" class="login-label">Correo electrónico:</label>
