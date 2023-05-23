@@ -42,6 +42,14 @@ export default {
     if (this.$user) {
       router.push('/Apuntes')
     }
+  },
+  created () {
+    const script = document.createElement('script')
+    script.src =
+      'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3036807213049494'
+    script.setAttribute('crossorigin', 'anonymous')
+    script.setAttribute('async', 'true')
+    document.head.appendChild(script)
   }
 }
 </script>
