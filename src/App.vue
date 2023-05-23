@@ -1,8 +1,8 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <template v-if="$user">
+    <h2>Bienvenido, {{ $user.email }}</h2>
+    <button @click="logout">Cerrar sesión</button>
+  </template>
   <router-view/>
 </template>
 
@@ -28,3 +28,20 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+
+<script>
+import { auth } from './firebase'
+import router from './router'
+export default {
+  methods: {
+    logout () {
+      auth.signOut()
+    }
+  },
+  mounted () {
+    if (this.$user) {
+      router.push('/Apuntes')
+    }
+  }
+}
+</script>
