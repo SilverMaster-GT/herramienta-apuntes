@@ -3,7 +3,7 @@
     <h2>Bienvenido, {{ $user.email }}</h2>
     <button @click="logout">Cerrar sesión</button>
   </template>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
@@ -30,12 +30,12 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-import { auth } from './firebase'
-import router from './router'
+import router from '@/router'
 export default {
   methods: {
-    logout () {
-      auth.signOut()
+    async logout () {
+      await this.$Auth.signOut()
+      await router.push('/')
     }
   },
   mounted () {

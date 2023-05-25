@@ -7,8 +7,7 @@
 </template>
 
 <script>
-import Login from '@/components/LoginIndex.vue'
-import { auth } from '@/firebase'
+import Login from '@/components/loginIndex.vue'
 import router from '@/router'
 
 export default {
@@ -21,10 +20,7 @@ export default {
     }
   },
   created () {
-    auth.onAuthStateChanged((loggedInUser) => {
-      this.user = loggedInUser
-    })
-    if (this.user) {
+    if (this.$user) {
       router.push('/Apuntes')
     }
   },

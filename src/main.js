@@ -8,11 +8,12 @@ const app = createApp(App)
 app.use(router)
 app.config.globalProperties.$firestore = firestore
 app.config.globalProperties.$Analytics = analytics
+app.config.globalProperties.$Auth = auth
 // Configuración del estado de autenticación
-onAuthStateChanged(auth, (user) => {
-  if (user) {
+onAuthStateChanged(auth, (loggedInUser) => {
+  if (loggedInUser) {
     // El usuario ha iniciado sesión
-    app.config.globalProperties.$user = user
+    app.config.globalProperties.$user = loggedInUser
   } else {
     // El usuario ha cerrado sesión
     delete app.config.globalProperties.$user

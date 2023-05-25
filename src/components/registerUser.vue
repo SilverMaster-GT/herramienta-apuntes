@@ -1,25 +1,24 @@
 <template>
   <div class="login-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
-    <h2 class="login-title">Herramienta Gratuita de Apuntes, ¡lleva a donde quieras tu informacion importante!</h2>
-    <h2 class="login-title">Iniciar sesión</h2>
-    <form @submit.prevent="login" class="login-form">
+    <h2 class="login-title">Registro de Usuario</h2>
+    <form @submit.prevent="registerUser" class="login-form">
       <label for="email" class="login-label">Correo electrónico:</label>
-      <input type="email" id="email" v-model="email" required class="login-input" />
+      <input type="email" id="email" v-model="email" required class="login-input"/>
       <br />
       <label for="password" class="login-label">Contraseña:</label>
-      <input type="password" id="password" v-model="password" required class="login-input" />
+      <input type="password" id="password" v-model="password" required class="login-input"/>
       <br />
-      <button type="submit" class="login-button">Iniciar sesión</button>
+      <button type="submit" class="login-button">Registrar</button>
     </form>
-    <p v-if="error" class="login-error">{{ error }}</p>
-    <router-link :to="{ name: 'register' }">Registrate</router-link>
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from '@/firebase'
+import { createUserWithEmailAndPassword } from '@/firebase'
+import router from '@/router'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
-import { useRouter } from 'vue-router'
+
 export default {
   data () {
     return {
@@ -33,22 +32,21 @@ export default {
     this.retrieveImage()
   },
   methods: {
-    async login () {
-      await signInWithEmailAndPassword(this.$Auth, this.email, this.password)
+    registerUser () {
+      createUserWithEmailAndPassword(this.$Auth, this.email, this.password)
         .then(() => {
-          // Inicio de sesión exitoso
-          const router = useRouter()
+          // Registro exitoso
           router.push('/Apuntes')
         })
         .catch((error) => {
-          // Error durante el inicio de sesión
+          // Error durante el registro
           this.error = error.message
         })
     },
     retrieveImage () {
       const storage = getStorage()
       const storageRef = ref(storage)
-      const imagePath = 'assets/img/1643c710-c644-4ecb-b571-01dc1548b5fc.jpg'
+      const imagePath = 'assets/img/b41dfd09-27a1-4cef-8e2d-9ad7cecf12c3.jpg'
 
       getDownloadURL(ref(storageRef, imagePath))
         .then((url) => {
@@ -121,6 +119,11 @@ export default {
 }
 
 .login-error {
+  color: red;
+  margin-top: 10px;
+}
+
+.error {
   color: red;
   margin-top: 10px;
 }

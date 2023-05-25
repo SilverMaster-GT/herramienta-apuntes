@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAnalytics } from 'firebase/analytics'
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 
 // Configura la información de tu proyecto Firebase
@@ -24,4 +24,4 @@ const firestore = getFirestore(firebaseApp)
 const analytics = getAnalytics(firebaseApp)
 const storage = getStorage(firebaseApp)
 
-export { auth, onAuthStateChanged, signInWithEmailAndPassword, firestore, analytics, storage }
+export { auth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, firestore, analytics, storage }

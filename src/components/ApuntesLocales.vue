@@ -45,10 +45,9 @@
 </template>
 
 <script>
-import { auth, firestore } from '@/firebase'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 import { collection, doc, addDoc, getDocs, query, deleteDoc } from 'firebase/firestore'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged } from '@/firebase'
 export default {
   data () {
     return {
@@ -64,14 +63,18 @@ export default {
   },
   created () {
     if (!this.$user) {
+      const router = useRouter()
       router.push('/')
     }
   },
   mounted () {
     // Observa el estado de autenticación
-    onAuthStateChanged(auth, (loggedInUser) => {
-      this.userLoggedIn = loggedInUser
-      this.obtenerColeccion(loggedInUser)
+    onAuthStateChanged(this.$Auth, async (loggedInUser) => {
+      if (loggedInUser) {
+        // El usuario ha iniciado sesión
+        this.userLoggedIn = this.$user
+        await this.obtenerColeccion(this.$user)
+      }
     })
   },
   methods: {
@@ -82,7 +85,7 @@ export default {
 
         this.guardarApuntesEnLocalStorage()
         // Agregar el nuevo apunte asociado al usuario en Firestore
-        const apuntesCollection = collection(doc(firestore, 'usuarios', this.userLoggedIn.uid), 'apuntes')
+        const apuntesCollection = collection(doc(this.$firestore, 'usuarios', this.userLoggedIn.uid), 'apuntes')
 
         addDoc(apuntesCollection, this.nuevoApunte)
           .then((docRef) => {
@@ -134,7 +137,7 @@ export default {
     },
     // Leer una colección completa
     obtenerColeccion: async function (info) {
-      const q = query(collection(firestore, 'usuarios', info.uid, 'apuntes'))
+      const q = query(collection(this.$firestore, 'usuarios', info?.uid, 'apuntes'))
       const querySnapshot = await getDocs(q)
 
       querySnapshot.forEach((doc) => {
@@ -144,7 +147,7 @@ export default {
       })
     },
     borrarApunte: async function (idDocumento) {
-      const apuntesCollection = collection(doc(firestore, 'usuarios', this.userLoggedIn.uid), 'apuntes')
+      const apuntesCollection = collection(doc(this.$firestore, 'usuarios', this.userLoggedIn?.uid), 'apuntes')
       try {
         await deleteDoc(doc(apuntesCollection, idDocumento))
         console.log('Apunte borrado correctamente.')
