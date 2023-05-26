@@ -8,7 +8,7 @@
 
 <script>
 import Login from '@/components/LoginIndex.vue'
-import router from '@/router'
+// import router from '@/router'
 
 export default {
   components: {
@@ -21,7 +21,7 @@ export default {
   },
   created () {
     if (this.$user) {
-      router.push('/Apuntes')
+      // router.push('/Apuntes')
     }
   },
   methods: {

@@ -2,7 +2,7 @@
   <div class="login-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
     <h2 class="login-title">Herramienta Gratuita de Apuntes, ¡lleva a donde quieras tu informacion importante!</h2>
     <h2 class="login-title">Iniciar sesión</h2>
-    <form @submit.prevent="login" class="login-form">
+    <form @submit.prevent="login()" class="login-form">
       <label for="email" class="login-label">Correo electrónico:</label>
       <input type="email" id="email" v-model="email" required class="login-input" />
       <br />
@@ -12,14 +12,15 @@
       <button type="submit" class="login-button">Iniciar sesión</button>
     </form>
     <p v-if="error" class="login-error">{{ error }}</p>
-    <router-link :to="{ name: 'register' }">Registrate</router-link>
+    <br>
+    Click aquí para <router-link :to="{ name: 'register' }">Registrarte</router-link>
   </div>
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from '@/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
-import { useRouter } from 'vue-router'
+import router from '@/router'
 export default {
   data () {
     return {
@@ -35,9 +36,8 @@ export default {
   methods: {
     async login () {
       await signInWithEmailAndPassword(this.$Auth, this.email, this.password)
-        .then(() => {
+        .then((data) => {
           // Inicio de sesión exitoso
-          const router = useRouter()
           router.push('/Apuntes')
         })
         .catch((error) => {

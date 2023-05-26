@@ -1,5 +1,9 @@
 <template>
   <div>
+    <template v-if="userLoggedIn.email">
+      <h2>Bienvenido, {{ userLoggedIn.email }}</h2>
+      <button @click="logout">Cerrar sesión</button>
+    </template>
     <h1>Herramienta de Apuntes</h1>
 
     <h2>Apuntes guardados:</h2>
@@ -45,9 +49,9 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
 import { collection, doc, addDoc, getDocs, query, deleteDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from '@/firebase'
+import router from '@/router'
 export default {
   data () {
     return {
@@ -58,13 +62,7 @@ export default {
         contenido: ''
       },
       modoEdicion: false,
-      userLoggedIn: null
-    }
-  },
-  created () {
-    if (!this.$user) {
-      const router = useRouter()
-      router.push('/')
+      userLoggedIn: []
     }
   },
   mounted () {
@@ -72,8 +70,10 @@ export default {
     onAuthStateChanged(this.$Auth, async (loggedInUser) => {
       if (loggedInUser) {
         // El usuario ha iniciado sesión
-        this.userLoggedIn = this.$user
-        await this.obtenerColeccion(this.$user)
+        this.userLoggedIn = loggedInUser
+        await this.obtenerColeccion(loggedInUser)
+      } else {
+        router.push('/')
       }
     })
   },
@@ -158,6 +158,10 @@ export default {
     deleteAll (id, apunteCloudId) {
       this.eliminarApunte(id)
       this.borrarApunte(apunteCloudId)
+    },
+    async logout () {
+      await this.$Auth.signOut()
+      await router.push('/')
     }
   }
 }

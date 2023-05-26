@@ -1,8 +1,4 @@
 <template>
-  <template v-if="$user">
-    <h2>Bienvenido, {{ $user.email }}</h2>
-    <button @click="logout">Cerrar sesión</button>
-  </template>
   <router-view />
 </template>
 
@@ -30,17 +26,10 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-import router from '@/router'
 export default {
-  methods: {
-    async logout () {
-      await this.$Auth.signOut()
-      await router.push('/')
-    }
-  },
-  mounted () {
-    if (this.$user) {
-      router.push('/Apuntes')
+  data () {
+    return {
+      userLoggedIn: []
     }
   },
   created () {
