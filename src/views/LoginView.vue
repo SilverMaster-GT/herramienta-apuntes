@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Login from '@/components/loginIndex.vue'
+import Login from '@/components/LoginIndex.vue'
 import router from '@/router'
 
 export default {

@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import Apuntes from '@/components/apuntesLocales.vue'
+import Apuntes from '@/components/ApuntesLocales.vue'
 
 export default {
   name: 'HomeView',
