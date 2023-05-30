@@ -1,14 +1,23 @@
 <template>
+  <el-page-header @back="goBack">
+    <template #content>
+      <span class="text-large font-600 mr-3"> Login </span>
+    </template>
+  </el-page-header>
   <div class="login-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
     <h2 class="login-title">Registro de Usuario</h2>
     <form @submit.prevent="registerUser" class="login-form">
-      <label for="email" class="login-label">Correo electrónico:</label>
-      <input type="email" id="email" v-model="email" required class="login-input"/>
+      <el-input v-model="email" placeholder="TuEmail@email.com" size="large">
+        <template #prepend>Correo Electronico:</template>
+      </el-input>
       <br />
-      <label for="password" class="login-label">Contraseña:</label>
-      <input type="password" id="password" v-model="password" required class="login-input"/>
       <br />
-      <button type="submit" class="login-button">Registrar</button>
+      <el-input v-model="password" size="large" type="password" show-password>
+        <template #prepend>Contraseña:</template>
+      </el-input>
+      <br />
+      <br />
+      <el-button type="primary" plain :icon="Key" @click="onSubmit">Registrarme</el-button>
     </form>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
@@ -56,6 +65,9 @@ export default {
         .catch((error) => {
           console.error('Error al obtener la imagen:', error)
         })
+    },
+    goBack () {
+      this.$router.go(-1)
     }
   }
 }
