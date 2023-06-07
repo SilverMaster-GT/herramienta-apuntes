@@ -70,7 +70,7 @@
           <div class="ancho">
             Contamos con mas herramientas, que puedes utilizar de forma gratuita y
             seguiremos creando mas, puedes darnos ideas de herramientas y con gusto
-            estaremos poiendonos manos a la obra
+            nos pondremos manos a la obra
             <br />
             <el-button type="primary" @click="moreTools">Ver mas Herramientas</el-button>
             <el-button type="success" @click="dialogFormVisible = !dialogFormVisible">Sugerir nueva Herramienta</el-button>
