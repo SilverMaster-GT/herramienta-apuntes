@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import { auth, firestore, analytics } from './firebase'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const app = createApp(App)
 
@@ -16,4 +18,10 @@ app.use(ElementPlus)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+
 app.mount('#app')
+app.mixin({
+  mounted () {
+    AOS.init()
+  }
+})
