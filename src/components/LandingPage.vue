@@ -50,6 +50,13 @@
         las asignaturas. No obstante, las explicaciones
         que dan los profesores en clase siguen siendo
         el eje en torno al cual gira la enseñanza.
+        <br />
+        <br />
+        <p style="padding-left: 35%;">
+        <el-button @click="continuar">
+          Seguir Leendo
+        </el-button>
+        </p>
         </div>
       </div>
     </el-main>
@@ -366,6 +373,10 @@ export default {
           h('span', null, 'Tenemos varias herramientas actualmente en fase Beta, dentro de poco podras probarlas')
         ])
       })
+    },
+    continuar () {
+      const url = 'https://planlea.edu.do/2020/09/la-importancia-de-tomar-apuntes-en-las-clases/#:~:text=Es%20innegable%20que%20cuando%20estamos,memoria%20de%20una%20forma%20especial.'
+      window.open(url, '_blank')
     }
   }
 }
