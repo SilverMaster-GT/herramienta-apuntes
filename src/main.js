@@ -24,7 +24,7 @@ app.use(VueGtm, {
   id: 'GTM-TLXXLTJ2', // Reemplaza con tu ID de Google Tag Manager
   vueRouter: router, // Si utilizas vue-router
   enabled: true, // Activa o desactiva el GTM
-  debug: true, // Modo de depuración (para ver eventos en consola)
+  debug: false, // Modo de depuración (para ver eventos en consola)
   loadScript: true, // Carga el script de GTM automáticamente
   trackOnNextTick: false // Define si quieres que los eventos se envíen en el siguiente tick
 })

@@ -2,7 +2,7 @@
   <el-row class="login-container" :style="{ backgroundImage: 'url(' + imageUrl + ')' }">
     <h2 class="login-title">Herramienta Gratuita de Apuntes <br /> ¡Lleva a donde quieras tu informacion importante!</h2>
     <h2 class="login-title">Iniciar sesión</h2>
-    <form class="login-form">
+    <form class="login-form" id="login-form" >
       <el-input v-model="email" placeholder="TuEmail@email.com" size="large">
         <template #prepend>Correo Electronico:</template>
       </el-input>
@@ -13,7 +13,7 @@
       </el-input>
       <br />
       <br />
-      <el-button type="primary" plain :icon="Key" @click="login()">Iniciar sesión</el-button>
+      <el-button type="primary" plain :icon="Key" @click="login()" id="login-button" >Iniciar sesión</el-button>
     </form>
     <p v-if="error" class="login-error">{{ error }}</p>
     <br>

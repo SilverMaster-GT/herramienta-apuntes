@@ -60,9 +60,9 @@
               <el-input v-model="search" size="small" placeholder="Buscar...." />
             </template>
             <template #default="apunte">
-              <el-button size="small" @click="editarApunte(apunte.row)" :icon="Edit"
+              <el-button size="small" @click="editarApunte(apunte.row)" :icon="Edit" id="edit"
                 >Editar</el-button>
-              <el-button type="danger" size="small" @click="deleteAll(apunte.row.id, apunte.row.indice)" :icon="Delete">Eliminar</el-button>
+              <el-button type="danger" size="small" @click="deleteAll(apunte.row.id, apunte.row.indice)" :icon="Delete" id="delete" >Eliminar</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -70,14 +70,14 @@
 
       <hr>
 
-      <el-button type="success" @click="exportarCSV" :icon="Download">Exportar a CSV</el-button>
+      <el-button type="success" @click="exportarCSV" :icon="Download" id="export">Exportar a CSV</el-button>
 
       <hr>
 
       <h2 class="subtitle">Agregar un nuevo apunte:</h2>
 
       <div class="form-group">
-        <el-select v-model="nuevoApunte.tipo" class="m-2" placeholder="Elije un tipo de apunte" size="large">
+        <el-select v-model="nuevoApunte.tipo" class="m-2" placeholder="Elije un tipo de apunte" size="large" id="tiposApuntes" >
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -94,13 +94,14 @@
           type="textarea"
           rows="10"
           :autosize="{ minRows: 10, maxRows: 10 }"
+          id="textoApunte"
         />
       </div>
 
-      <el-button type="primary" @click="modoEdicion ? guardarEdicion() : guardarApunte()" :icon="modoEdicion ? SuccessFilled : Finished">
+      <el-button type="primary" @click="modoEdicion ? guardarEdicion() : guardarApunte()" :icon="modoEdicion ? SuccessFilled : Finished" :id="modoEdicion ? 'guardarNuevo' : 'guardarEditado'" >
         {{ modoEdicion ? 'Guardar edición ' : 'Guardar apunte ' }}
       </el-button>
-      <el-button v-if="modoEdicion" :icon="CircleCloseFilled">
+      <el-button v-if="modoEdicion" :icon="CircleCloseFilled" id="cancelarEdicion" >
         Cancelar Edición
       </el-button>
     </el-col>
