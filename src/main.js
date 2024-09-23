@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import VueGtm from 'vue-gtm'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
@@ -18,6 +19,15 @@ app.use(ElementPlus)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
+// Configuración vue-gtm
+app.use(VueGtm, {
+  id: 'GTM-TLXXLTJ2', // Reemplaza con tu ID de Google Tag Manager
+  vueRouter: router, // Si utilizas vue-router
+  enabled: true, // Activa o desactiva el GTM
+  debug: true, // Modo de depuración (para ver eventos en consola)
+  loadScript: true, // Carga el script de GTM automáticamente
+  trackOnNextTick: false // Define si quieres que los eventos se envíen en el siguiente tick
+})
 
 app.mount('#app')
 app.mixin({
